@@ -1,0 +1,227 @@
+import { Report } from "../modules/reports.model";
+import { COLLECTIONS } from "../constants/collections";
+import {
+    getDocumentsByField,
+    getDocumentById,
+    deleteDocument,
+    getAllDocuments
+} from "../utils/firestore.service";
+import crypto from "crypto";
+import { db } from "../config/firebase";
+import { createReportSchema, type CreateReportInput } from "../validation/reports.validation";
+import { ReportStatus, ReportTargetType, ReviewStatus, Role, TargetType, UserStatus, DisplayMode } from "../enums/enums";
+import { Timestamp } from "firebase-admin/firestore";
+import { getUserById } from "./user.services";
+import { getHospitalByAdminId } from "./hospital.services";
+import { prepareContentRemoval } from "./contentRemoval.service";
+import { reportActionSchema, ReportAction } from "../validation/reports.validation";
+import { DocumentData } from "firebase-admin/firestore";
+
+export class ReportError extends Error {
+  constructor(message: string, public readonly statusCode: number) { super(message); }
+}
+const targetCollections = {
+  [ReportTargetType.POST]: COLLECTIONS.POSTS,
+  [ReportTargetType.COMMENT]: COLLECTIONS.COMMENTS,
+  [ReportTargetType.REVIEW]: COLLECTIONS.REVIEWS,
+  [ReportTargetType.USER]: COLLECTIONS.USERS,
+};
+export const createReport = async (uid: string, input: CreateReportInput) => {
+  if (!uid) throw new ReportError("Authentication required", 401);
+  const data = createReportSchema.parse(input);
+  const id = crypto.randomUUID();
+  const reports = db.collection(COLLECTIONS.REPORTS);
+  const target = db.collection(targetCollections[data.targetType]).doc(data.targetId);
+  const key = crypto.createHash("sha256").update(JSON.stringify([uid, data.targetType, data.targetId])).digest("hex");
+  // A guard in a subcollection never appears in the Admin report list. All report
+  // history stays in the existing reports collection with its original IDs.
+  const guard = reports.doc("_active").collection("targets").doc(key);
+  await db.runTransaction(async transaction => {
+    const reporter = await transaction.get(db.collection(COLLECTIONS.USERS).doc(uid));
+    if (!reporter.exists) throw new ReportError("Complete your profile before reporting.", 404);
+    if (reporter.data()?.status === UserStatus.BLOCKED) throw new ReportError("Your account is blocked", 403);
+    const snapshot = await transaction.get(target);
+    if (!snapshot.exists) throw new ReportError("Report target not found", 404);
+    const entity = snapshot.data()!;
+    const owner = data.targetType === ReportTargetType.USER ? snapshot.id : entity.userId;
+    if (owner === uid) throw new ReportError("You cannot report yourself or your own content.", 403);
+    if (typeof owner !== "string" || !owner) throw new ReportError("Report target not found", 404);
+    if (data.targetType === ReportTargetType.USER) {
+      if (entity.settings?.privacy?.publicProfile === false) throw new ReportError("Report target not found", 404);
+    } else if (entity.status !== ReviewStatus.APPROVED) {
+      throw new ReportError("Report target not found", 404);
+    }
+    const active = await transaction.get(guard);
+    if (active.exists) {
+      const previous = await transaction.get(reports.doc(active.data()!.reportId));
+      if (previous.exists && previous.data()!.status === ReportStatus.PENDING)
+        throw new ReportError("You already have a report awaiting review for this content.", 409);
+    } else {
+      // Include reports created before guards existed, without scanning all reports.
+      const previous = await transaction.get(reports.where("userId", "==", uid));
+      if (previous.docs.some(row => {
+        const report = row.data() as Report;
+        return report.targetType === data.targetType && report.targetId === data.targetId && report.status === ReportStatus.PENDING;
+      })) throw new ReportError("You already have a report awaiting review for this content.", 409);
+    }
+    const now = Timestamp.now();
+    const report: Report = { id, userId: uid, targetType: data.targetType, targetId: data.targetId,
+      reason: data.reason, ...(data.description ? { description: data.description } : {}),
+      status: ReportStatus.PENDING, createdAt: now, updatedAt: now };
+    if (data.targetType === ReportTargetType.REVIEW && entity.targetType === TargetType.HOSPITAL)
+      report.hospitalId = entity.targetId;
+    transaction.set(reports.doc(id), report);
+    transaction.set(guard, { reportId: id });
+  });
+  // Never return a target document, owner UID, reporter UID or private profile data.
+  return { id, targetType: data.targetType, targetId: data.targetId, status: ReportStatus.PENDING };
+};
+export const getReportById=async(
+    reportId:string
+)=>{
+    return await getDocumentById<Report>(
+        COLLECTIONS.REPORTS,
+        reportId
+    )
+}
+
+export const getAllReports=async()=>{
+    return await getAllDocuments<Report>(
+        COLLECTIONS.REPORTS
+    )
+}
+//reports  qe ka bere nje user i caktuar
+export const getReportsByUserId=async(
+    userId:string
+)=>{
+    return await getDocumentsByField<Report>(
+        COLLECTIONS.REPORTS,
+        "userId",
+        userId
+    )
+}
+//reports qe ka nje postim
+export const getReportsByPostId=async(postId:string)=>{
+    const reports = await getDocumentsByField<Report>(COLLECTIONS.REPORTS, "targetId", postId);
+    return reports.filter(report => report.targetType === ReportTargetType.POST);
+}
+export const deleteReport=async(
+    reportId:string
+)=>{
+    await deleteDocument(
+        COLLECTIONS.REPORTS,
+        reportId
+    )
+}
+
+const moderationScope = async (uid: string) => {
+  const user = await getUserById(uid);
+  if (user?.role === Role.ADMIN) return { admin: true, hospitalId: undefined as string | undefined };
+  if (user?.role !== Role.HOSPITAL_ADMIN) throw new ReportError("Report access denied", 403);
+  const hospital = await getHospitalByAdminId(uid);
+  if (!hospital) throw new ReportError("No managed hospital found", 403);
+  return { admin: false, hospitalId: hospital.id };
+};
+const targetDocument = async (report: Report): Promise<DocumentData | null> => {
+  const collection = targetCollections[report.targetType];
+  return collection ? getDocumentById<DocumentData>(collection, report.targetId) : null;
+};
+const hospitalForReport = (report: Report, target: DocumentData | null): string | undefined => {
+  // Posts, comments/replies, communities and users have no hospital relationship
+  // in the current model. Do not infer it from author identity or client values.
+  if (report.targetType !== ReportTargetType.REVIEW) return undefined;
+  return target ? (target.targetType === TargetType.HOSPITAL ? target.targetId : undefined) : report.hospitalId;
+};
+const contentPreview = (target: DocumentData) => ({
+  ...(typeof target.title === "string" ? { title: target.title } : {}),
+  ...(typeof target.content === "string" ? { content: target.content } : {}),
+  ...(typeof target.comment === "string" ? { content: target.comment } : {}),
+  ...(typeof target.rating === "number" ? { rating: target.rating } : {}),
+});
+const presentModerationReport = async (report: Report, target: DocumentData | null, uid: string, admin: boolean) => {
+  const ownerId = target ? (report.targetType === ReportTargetType.USER ? report.targetId : target.userId) : undefined;
+  const anonymous = target?.displayMode === DisplayMode.ANONYMOUS || target?.isAnonymous === true;
+  const owner = typeof ownerId === "string" ? await getUserById(ownerId) : null;
+  const hospitalId = hospitalForReport(report, target);
+  const hospital = hospitalId ? await getDocumentById<DocumentData>(COLLECTIONS.HOSPITALS, hospitalId) : null;
+  const community = target?.communityId ? await getDocumentById<DocumentData>(COLLECTIONS.COMMUNITIES, target.communityId) : null;
+  return {
+    id: report.id, targetType: report.targetType, targetId: report.targetId,
+    reason: report.reason, ...(report.description ? { description: report.description } : {}),
+    status: report.status, createdAt: report.createdAt,
+    ...(report.moderationAction ? { moderationAction: report.moderationAction } : {}),
+    target: { exists: !!target, ...contentPreview(target ?? report.removedPreview ?? {}),
+      ...(target?.parentCommentId ? { isReply: true } : {}),
+      author: anonymous ? { label: "Anonymous" } : owner ? {
+        label: `${owner.firstName ?? ""} ${owner.lastname ?? ""}`.trim() || "User",
+        ...(owner.photoUrl ? { photoUrl: owner.photoUrl } : {}),
+        ...(report.targetType === ReportTargetType.USER ? { role: owner.role, status: owner.status } : {}),
+      } : { label: "Unavailable user" },
+    },
+    ...(hospital ? { hospital: { name: hospital.name, city: hospital.city } } : {}),
+    ...(community ? { community: { name: community.name } } : {}),
+    canRemove: admin && report.status === ReportStatus.PENDING && !!target && report.targetType !== ReportTargetType.USER,
+    canBlock: admin && report.status === ReportStatus.PENDING && !!owner && owner.id !== uid && owner.role !== Role.ADMIN && owner.status !== UserStatus.BLOCKED,
+  };
+};
+export const getModerationReports = async (uid: string, postId?: string) => {
+  const scope = await moderationScope(uid);
+  const reports = postId ? await getReportsByPostId(postId) : await getAllReports();
+  const presented = await Promise.all(reports.filter(report => !!targetCollections[report.targetType]).map(async report => {
+    const target = await targetDocument(report);
+    if (!scope.admin && hospitalForReport(report, target) !== scope.hospitalId) return null;
+    return presentModerationReport(report, target, uid, scope.admin);
+  }));
+  return presented.filter(report => report !== null);
+};
+export const getModerationReport = async (uid: string, id: string) => {
+  const scope = await moderationScope(uid);
+  const report = await getReportById(id);
+  if (!report) throw new ReportError("Report not found", 404);
+  const target = await targetDocument(report);
+  if (!scope.admin && hospitalForReport(report, target) !== scope.hospitalId) throw new ReportError("Report not found", 404);
+  return presentModerationReport(report, target, uid, scope.admin);
+};
+export const moderateReport = async (uid: string, id: string, actionInput: ReportAction) => {
+  const { action } = reportActionSchema.parse({ action: actionInput });
+  return db.runTransaction(async transaction => {
+    const actor = await transaction.get(db.collection(COLLECTIONS.USERS).doc(uid));
+    if (actor.data()?.role !== Role.ADMIN || actor.data()?.status === UserStatus.BLOCKED)
+      throw new ReportError("Administrator permission required", 403);
+    const ref = db.collection(COLLECTIONS.REPORTS).doc(id);
+    const snapshot = await transaction.get(ref);
+    if (!snapshot.exists) throw new ReportError("Report not found", 404);
+    const report = snapshot.data() as Report;
+    if (report.status !== ReportStatus.PENDING) throw new ReportError("This report is already handled", 409);
+    const removing = action === "REMOVE_CONTENT" || action === "REMOVE_AND_BLOCK";
+    const blocking = action === "BLOCK_ACCOUNT" || action === "REMOVE_AND_BLOCK";
+    let target: DocumentData | undefined;
+    if (removing || blocking) {
+      const collection = targetCollections[report.targetType];
+      if (!collection) throw new ReportError("Unsupported report target", 400);
+      target = (await transaction.get(db.collection(collection).doc(report.targetId))).data();
+      if (!target) throw new ReportError("Reported target no longer exists", 409);
+    }
+    if (removing && report.targetType === ReportTargetType.USER) throw new ReportError("User profiles cannot be removed as content", 400);
+    const ownerId = report.targetType === ReportTargetType.USER ? report.targetId : target?.userId;
+    let accountRef;
+    if (blocking) {
+      if (typeof ownerId !== "string" || !ownerId) throw new ReportError("Reported account not found", 404);
+      if (ownerId === uid) throw new ReportError("You cannot block yourself", 403);
+      accountRef = db.collection(COLLECTIONS.USERS).doc(ownerId);
+      const owner = await transaction.get(accountRef);
+      if (!owner.exists) throw new ReportError("Reported account not found", 404);
+      if (owner.data()?.role === Role.ADMIN) throw new ReportError("Administrator accounts cannot be blocked through reports", 403);
+    }
+    const remove = removing ? await prepareContentRemoval(transaction, targetCollections[report.targetType], report.targetId, uid) : undefined;
+    const now = Timestamp.now();
+    if (remove) remove();
+    if (accountRef) transaction.update(accountRef, { status: UserStatus.BLOCKED, updatedAt: now });
+    const status = action === "DISMISS" ? ReportStatus.REJECTED : ReportStatus.RESOLVED;
+    transaction.update(ref, { status, moderationAction: action, moderatedBy: uid, moderatedAt: now, updatedAt: now,
+      ...(removing && target ? { removedPreview: contentPreview(target) } : {}),
+      ...(report.targetType === ReportTargetType.REVIEW && target?.targetType === TargetType.HOSPITAL ? { hospitalId: target.targetId } : {}),
+    });
+    return { id, status, action };
+  });
+};

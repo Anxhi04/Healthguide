@@ -1,0 +1,5 @@
+2026/09/17-20:06:17.058 11d8 Creating DB C:\Users\User\Desktop\diploma\web\.browser-report-fixes\Default\Sync Data\LevelDB since it was missing.
+2026/09/17-20:06:17.065 11d8 Reusing MANIFEST C:\Users\User\Desktop\diploma\web\.browser-report-fixes\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/09/17-20:08:38.329 13bc Level-0 table #5: started
+2026/09/17-20:08:38.334 13bc Level-0 table #5: 102583 bytes OK
+2026/09/17-20:08:38.335 13bc Delete type=0 #3

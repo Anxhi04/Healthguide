@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+credentials/firebase-admin.json
+demo-backups/
+uploads/profile-photos/*
+!uploads/profile-photos/.gitkeep

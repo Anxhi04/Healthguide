@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { authenticate } from "../middleware/auth.middleware";
+import { requireRole } from "../middleware/role.middleware";
+import { Role } from "../enums/enums";
+import { getAvailableWords, getHospitalWords, addHospitalWord, removeHospitalWord } from "../controllers/bannedWords.controller";
+const router = Router();
+router.use(authenticate, requireRole(Role.HOSPITAL_ADMIN));
+router.get("/available", getAvailableWords);
+router.get("/hospital", getHospitalWords);
+router.post("/hospital", addHospitalWord);
+router.delete("/hospital/:id", removeHospitalWord);
+export default router;

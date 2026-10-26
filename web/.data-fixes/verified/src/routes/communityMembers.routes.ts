@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { join, leave, getMembers, checkMembership } from "../controllers/communityMember.controller";
+import { authenticate } from "../middleware/auth.middleware";
+import { validateCommunity } from "../validation/communities.validation";
+const router = Router();
+router.post("/:communityId/join", authenticate, validateCommunity("id"), join);
+router.delete("/:communityId/leave", authenticate, validateCommunity("id"), leave);
+router.get("/:communityId/members", validateCommunity("id"), getMembers);
+router.get("/:communityId/is-member", authenticate, validateCommunity("id"), checkMembership);
+export default router;

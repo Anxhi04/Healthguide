@@ -1,0 +1,159 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/ui/input-group.tsx");const React = ((m, n) => n || !m?.__esModule ? {	...typeof m === "object" && !Array.isArray(m) || typeof m === "function" ? m : {},	default: m} : m)(__vite__cjsImport0_react, 1);const _jsxDEV = __vite__cjsImport6_react_jsxDevRuntime["jsxDEV"];import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=ea7b1706";
+import { cva } from "/node_modules/.vite/deps/class-variance-authority.js?v=99bb824a";
+import { cn } from "/src/lib/utils.ts";
+import { Button } from "/src/components/ui/button.tsx";
+import { Input } from "/src/components/ui/input.tsx";
+import { Textarea } from "/src/components/ui/textarea.tsx";
+var _jsxFileName = "C:/Users/User/Desktop/diploma/web/src/components/ui/input-group.tsx";
+import __vite__cjsImport6_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=ea7b1706";
+function InputGroup({ className, ...props }) {
+	return /* @__PURE__ */ _jsxDEV("div", {
+		"data-slot": "input-group",
+		role: "group",
+		className: cn(
+			"group/input-group border-input dark:bg-input/30 shadow-xs relative flex w-full items-center rounded-md border outline-none transition-[color,box-shadow]",
+			"h-9 has-[>textarea]:h-auto",
+			// Variants based on alignment.
+			"has-[>[data-align=inline-start]]:[&>input]:pl-2",
+			"has-[>[data-align=inline-end]]:[&>input]:pr-2",
+			"has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3",
+			"has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3",
+			// Focus state.
+			"has-[[data-slot=input-group-control]:focus-visible]:ring-ring has-[[data-slot=input-group-control]:focus-visible]:ring-1",
+			// Error state.
+			"has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40",
+			className
+		),
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 11,
+		columnNumber: 5
+	}, this);
+}
+_c = InputGroup;
+const inputGroupAddonVariants = cva("text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4", {
+	variants: { align: {
+		"inline-start": "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]",
+		"inline-end": "order-last pr-3 has-[>button]:mr-[-0.4rem] has-[>kbd]:mr-[-0.35rem]",
+		"block-start": "[.border-b]:pb-3 order-first w-full justify-start px-3 pt-3 group-has-[>input]/input-group:pt-2.5",
+		"block-end": "[.border-t]:pt-3 order-last w-full justify-start px-3 pb-3 group-has-[>input]/input-group:pb-2.5"
+	} },
+	defaultVariants: { align: "inline-start" }
+});
+function InputGroupAddon({ className, align = "inline-start", ...props }) {
+	return /* @__PURE__ */ _jsxDEV("div", {
+		role: "group",
+		"data-slot": "input-group-addon",
+		"data-align": align,
+		className: cn(inputGroupAddonVariants({ align }), className),
+		onClick: (e) => {
+			if (e.target.closest("button")) {
+				return;
+			}
+			e.currentTarget.parentElement?.querySelector("input")?.focus();
+		},
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 64,
+		columnNumber: 5
+	}, this);
+}
+_c2 = InputGroupAddon;
+const inputGroupButtonVariants = cva("flex items-center gap-2 text-sm shadow-none", {
+	variants: { size: {
+		xs: "h-6 gap-1 rounded-[calc(var(--radius)-5px)] px-2 has-[>svg]:px-2 [&>svg:not([class*='size-'])]:size-3.5",
+		sm: "h-8 gap-1.5 rounded-md px-2.5 has-[>svg]:px-2.5",
+		"icon-xs": "size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0",
+		"icon-sm": "size-8 p-0 has-[>svg]:p-0"
+	} },
+	defaultVariants: { size: "xs" }
+});
+function InputGroupButton({ className, type = "button", variant = "ghost", size = "xs", ...props }) {
+	return /* @__PURE__ */ _jsxDEV(Button, {
+		type,
+		"data-size": size,
+		variant,
+		className: cn(inputGroupButtonVariants({ size }), className),
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 107,
+		columnNumber: 5
+	}, this);
+}
+_c3 = InputGroupButton;
+function InputGroupText({ className, ...props }) {
+	return /* @__PURE__ */ _jsxDEV("span", {
+		className: cn("text-muted-foreground flex items-center gap-2 text-sm [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none", className),
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 119,
+		columnNumber: 5
+	}, this);
+}
+_c4 = InputGroupText;
+const InputGroupInput = React.forwardRef(_c5 = ({ className, ...props }, ref) => {
+	return /* @__PURE__ */ _jsxDEV(Input, {
+		"data-slot": "input-group-control",
+		className: cn("flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent", className),
+		ref,
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 132,
+		columnNumber: 7
+	}, this);
+});
+_c6 = InputGroupInput;
+InputGroupInput.displayName = "InputGroupInput";
+const InputGroupTextarea = React.forwardRef(_c7 = ({ className, ...props }, ref) => {
+	return /* @__PURE__ */ _jsxDEV(Textarea, {
+		"data-slot": "input-group-control",
+		className: cn("flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent", className),
+		ref,
+		...props
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 149,
+		columnNumber: 7
+	}, this);
+});
+_c8 = InputGroupTextarea;
+InputGroupTextarea.displayName = "InputGroupTextarea";
+export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupText, InputGroupInput, InputGroupTextarea };
+var _c, _c2, _c3, _c4, _c5, _c6, _c7, _c8;
+$RefreshReg$(_c, "InputGroup");
+$RefreshReg$(_c2, "InputGroupAddon");
+$RefreshReg$(_c3, "InputGroupButton");
+$RefreshReg$(_c4, "InputGroupText");
+$RefreshReg$(_c5, "InputGroupInput$React.forwardRef");
+$RefreshReg$(_c6, "InputGroupInput");
+$RefreshReg$(_c7, "InputGroupTextarea$React.forwardRef");
+$RefreshReg$(_c8, "InputGroupTextarea");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/components/ui/input-group.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/User/Desktop/diploma/web/src/components/ui/input-group.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/User/Desktop/diploma/web/src/components/ui/input-group.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "C:/Users/User/Desktop/diploma/web/src/components/ui/input-group.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsWUFBWSxXQUFXO0FBQ3ZCLFNBQVMsV0FBOEI7QUFFdkMsU0FBUyxVQUFVO0FBQ25CLFNBQVMsY0FBYztBQUN2QixTQUFTLGFBQWE7QUFDdEIsU0FBUyxnQkFBZ0I7OztBQUV6QixTQUFTLFdBQVcsRUFBRSxXQUFXLEdBQUcsU0FBc0M7Q0FDeEUsT0FDRSx3QkFBQyxPQUFEO0VBQ0UsYUFBVTtFQUNWLE1BQUs7RUFDTCxXQUFXO0dBQ1Q7R0FDQTs7R0FHQTtHQUNBO0dBQ0E7R0FDQTs7R0FHQTs7R0FHQTtHQUVBO0VBQ0Y7RUFDQSxHQUFJO0NBQ0w7Ozs7O0FBRUw7O0FBRUEsTUFBTSwwQkFBMEIsSUFDOUIsMlBBQ0E7Q0FDRSxVQUFVLEVBQ1IsT0FBTztFQUNMLGdCQUNFO0VBQ0YsY0FDRTtFQUNGLGVBQ0U7RUFDRixhQUNFO0NBQ0osRUFDRjtDQUNBLGlCQUFpQixFQUNmLE9BQU8sZUFDVDtBQUNGLENBQ0Y7QUFFQSxTQUFTLGdCQUFnQixFQUN2QixXQUNBLFFBQVEsZ0JBQ1IsR0FBRyxTQUMwRTtDQUM3RSxPQUNFLHdCQUFDLE9BQUQ7RUFDRSxNQUFLO0VBQ0wsYUFBVTtFQUNWLGNBQVk7RUFDWixXQUFXLEdBQUcsd0JBQXdCLEVBQUUsTUFBTSxDQUFDLEdBQUcsU0FBUztFQUMzRCxVQUFVLE1BQU07R0FDZCxJQUFLLEVBQUUsT0FBdUIsUUFBUSxRQUFRLEdBQUc7SUFDL0M7R0FDRjtHQUNBLEVBQUUsY0FBYyxlQUFlLGNBQWMsT0FBTyxDQUFDLEVBQUUsTUFBTTtFQUMvRDtFQUNBLEdBQUk7Q0FDTDs7Ozs7QUFFTDs7QUFFQSxNQUFNLDJCQUEyQixJQUMvQiwrQ0FDQTtDQUNFLFVBQVUsRUFDUixNQUFNO0VBQ0osSUFBSTtFQUNKLElBQUk7RUFDSixXQUNFO0VBQ0YsV0FBVztDQUNiLEVBQ0Y7Q0FDQSxpQkFBaUIsRUFDZixNQUFNLEtBQ1I7QUFDRixDQUNGO0FBRUEsU0FBUyxpQkFBaUIsRUFDeEIsV0FDQSxPQUFPLFVBQ1AsVUFBVSxTQUNWLE9BQU8sTUFDUCxHQUFHLFNBRTRDO0NBQy9DLE9BQ0Usd0JBQUMsUUFBRDtFQUNRO0VBQ04sYUFBVztFQUNGO0VBQ1QsV0FBVyxHQUFHLHlCQUF5QixFQUFFLEtBQUssQ0FBQyxHQUFHLFNBQVM7RUFDM0QsR0FBSTtDQUNMOzs7OztBQUVMOztBQUVBLFNBQVMsZUFBZSxFQUFFLFdBQVcsR0FBRyxTQUF1QztDQUM3RSxPQUNFLHdCQUFDLFFBQUQ7RUFDRSxXQUFXLEdBQ1QsMEhBQ0EsU0FDRjtFQUNBLEdBQUk7Q0FDTDs7Ozs7QUFFTDs7QUFFQSxNQUFNLGtCQUFrQixNQUFNLGtCQUMzQixFQUFFLFdBQVcsR0FBRyxTQUFTLFFBQVE7Q0FDaEMsT0FDRSx3QkFBQyxPQUFEO0VBQ0UsYUFBVTtFQUNWLFdBQVcsR0FDVCxvR0FDQSxTQUNGO0VBQ0s7RUFDTCxHQUFJO0NBQ0w7Ozs7O0FBRUwsQ0FDRjs7QUFDQSxnQkFBZ0IsY0FBYztBQUU5QixNQUFNLHFCQUFxQixNQUFNLGtCQUM5QixFQUFFLFdBQVcsR0FBRyxTQUFTLFFBQVE7Q0FDaEMsT0FDRSx3QkFBQyxVQUFEO0VBQ0UsYUFBVTtFQUNWLFdBQVcsR0FDVCxxSEFDQSxTQUNGO0VBQ0s7RUFDTCxHQUFJO0NBQ0w7Ozs7O0FBRUwsQ0FDRjs7QUFDQSxtQkFBbUIsY0FBYztBQUVqQyxTQUNFLFlBQ0EsaUJBQ0Esa0JBQ0EsZ0JBQ0EsaUJBQ0EiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiaW5wdXQtZ3JvdXAudHN4Il0sInZlcnNpb24iOjMsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAqIGFzIFJlYWN0IGZyb20gXCJyZWFjdFwiXG5pbXBvcnQgeyBjdmEsIHR5cGUgVmFyaWFudFByb3BzIH0gZnJvbSBcImNsYXNzLXZhcmlhbmNlLWF1dGhvcml0eVwiXG5cbmltcG9ydCB7IGNuIH0gZnJvbSBcIkAvbGliL3V0aWxzXCJcbmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gXCJAL2NvbXBvbmVudHMvdWkvYnV0dG9uXCJcbmltcG9ydCB7IElucHV0IH0gZnJvbSBcIkAvY29tcG9uZW50cy91aS9pbnB1dFwiXG5pbXBvcnQgeyBUZXh0YXJlYSB9IGZyb20gXCJAL2NvbXBvbmVudHMvdWkvdGV4dGFyZWFcIlxuXG5mdW5jdGlvbiBJbnB1dEdyb3VwKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9OiBSZWFjdC5Db21wb25lbnRQcm9wczxcImRpdlwiPikge1xuICByZXR1cm4gKFxuICAgIDxkaXZcbiAgICAgIGRhdGEtc2xvdD1cImlucHV0LWdyb3VwXCJcbiAgICAgIHJvbGU9XCJncm91cFwiXG4gICAgICBjbGFzc05hbWU9e2NuKFxuICAgICAgICBcImdyb3VwL2lucHV0LWdyb3VwIGJvcmRlci1pbnB1dCBkYXJrOmJnLWlucHV0LzMwIHNoYWRvdy14cyByZWxhdGl2ZSBmbGV4IHctZnVsbCBpdGVtcy1jZW50ZXIgcm91bmRlZC1tZCBib3JkZXIgb3V0bGluZS1ub25lIHRyYW5zaXRpb24tW2NvbG9yLGJveC1zaGFkb3ddXCIsXG4gICAgICAgIFwiaC05IGhhcy1bPnRleHRhcmVhXTpoLWF1dG9cIixcblxuICAgICAgICAvLyBWYXJpYW50cyBiYXNlZCBvbiBhbGlnbm1lbnQuXG4gICAgICAgIFwiaGFzLVs+W2RhdGEtYWxpZ249aW5saW5lLXN0YXJ0XV06WyY+aW5wdXRdOnBsLTJcIixcbiAgICAgICAgXCJoYXMtWz5bZGF0YS1hbGlnbj1pbmxpbmUtZW5kXV06WyY+aW5wdXRdOnByLTJcIixcbiAgICAgICAgXCJoYXMtWz5bZGF0YS1hbGlnbj1ibG9jay1zdGFydF1dOmgtYXV0byBoYXMtWz5bZGF0YS1hbGlnbj1ibG9jay1zdGFydF1dOmZsZXgtY29sIGhhcy1bPltkYXRhLWFsaWduPWJsb2NrLXN0YXJ0XV06WyY+aW5wdXRdOnBiLTNcIixcbiAgICAgICAgXCJoYXMtWz5bZGF0YS1hbGlnbj1ibG9jay1lbmRdXTpoLWF1dG8gaGFzLVs+W2RhdGEtYWxpZ249YmxvY2stZW5kXV06ZmxleC1jb2wgaGFzLVs+W2RhdGEtYWxpZ249YmxvY2stZW5kXV06WyY+aW5wdXRdOnB0LTNcIixcblxuICAgICAgICAvLyBGb2N1cyBzdGF0ZS5cbiAgICAgICAgXCJoYXMtW1tkYXRhLXNsb3Q9aW5wdXQtZ3JvdXAtY29udHJvbF06Zm9jdXMtdmlzaWJsZV06cmluZy1yaW5nIGhhcy1bW2RhdGEtc2xvdD1pbnB1dC1ncm91cC1jb250cm9sXTpmb2N1cy12aXNpYmxlXTpyaW5nLTFcIixcblxuICAgICAgICAvLyBFcnJvciBzdGF0ZS5cbiAgICAgICAgXCJoYXMtW1tkYXRhLXNsb3RdW2FyaWEtaW52YWxpZD10cnVlXV06cmluZy1kZXN0cnVjdGl2ZS8yMCBoYXMtW1tkYXRhLXNsb3RdW2FyaWEtaW52YWxpZD10cnVlXV06Ym9yZGVyLWRlc3RydWN0aXZlIGRhcms6aGFzLVtbZGF0YS1zbG90XVthcmlhLWludmFsaWQ9dHJ1ZV1dOnJpbmctZGVzdHJ1Y3RpdmUvNDBcIixcblxuICAgICAgICBjbGFzc05hbWVcbiAgICAgICl9XG4gICAgICB7Li4ucHJvcHN9XG4gICAgLz5cbiAgKVxufVxuXG5jb25zdCBpbnB1dEdyb3VwQWRkb25WYXJpYW50cyA9IGN2YShcbiAgXCJ0ZXh0LW11dGVkLWZvcmVncm91bmQgZmxleCBoLWF1dG8gY3Vyc29yLXRleHQgc2VsZWN0LW5vbmUgaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGdhcC0yIHB5LTEuNSB0ZXh0LXNtIGZvbnQtbWVkaXVtIGdyb3VwLWRhdGEtW2Rpc2FibGVkPXRydWVdL2lucHV0LWdyb3VwOm9wYWNpdHktNTAgWyY+a2JkXTpyb3VuZGVkLVtjYWxjKHZhcigtLXJhZGl1cyktNXB4KV0gWyY+c3ZnOm5vdChbY2xhc3MqPSdzaXplLSddKV06c2l6ZS00XCIsXG4gIHtcbiAgICB2YXJpYW50czoge1xuICAgICAgYWxpZ246IHtcbiAgICAgICAgXCJpbmxpbmUtc3RhcnRcIjpcbiAgICAgICAgICBcIm9yZGVyLWZpcnN0IHBsLTMgaGFzLVs+YnV0dG9uXTptbC1bLTAuNDVyZW1dIGhhcy1bPmtiZF06bWwtWy0wLjM1cmVtXVwiLFxuICAgICAgICBcImlubGluZS1lbmRcIjpcbiAgICAgICAgICBcIm9yZGVyLWxhc3QgcHItMyBoYXMtWz5idXR0b25dOm1yLVstMC40cmVtXSBoYXMtWz5rYmRdOm1yLVstMC4zNXJlbV1cIixcbiAgICAgICAgXCJibG9jay1zdGFydFwiOlxuICAgICAgICAgIFwiWy5ib3JkZXItYl06cGItMyBvcmRlci1maXJzdCB3LWZ1bGwganVzdGlmeS1zdGFydCBweC0zIHB0LTMgZ3JvdXAtaGFzLVs+aW5wdXRdL2lucHV0LWdyb3VwOnB0LTIuNVwiLFxuICAgICAgICBcImJsb2NrLWVuZFwiOlxuICAgICAgICAgIFwiWy5ib3JkZXItdF06cHQtMyBvcmRlci1sYXN0IHctZnVsbCBqdXN0aWZ5LXN0YXJ0IHB4LTMgcGItMyBncm91cC1oYXMtWz5pbnB1dF0vaW5wdXQtZ3JvdXA6cGItMi41XCIsXG4gICAgICB9LFxuICAgIH0sXG4gICAgZGVmYXVsdFZhcmlhbnRzOiB7XG4gICAgICBhbGlnbjogXCJpbmxpbmUtc3RhcnRcIixcbiAgICB9LFxuICB9XG4pXG5cbmZ1bmN0aW9uIElucHV0R3JvdXBBZGRvbih7XG4gIGNsYXNzTmFtZSxcbiAgYWxpZ24gPSBcImlubGluZS1zdGFydFwiLFxuICAuLi5wcm9wc1xufTogUmVhY3QuQ29tcG9uZW50UHJvcHM8XCJkaXZcIj4gJiBWYXJpYW50UHJvcHM8dHlwZW9mIGlucHV0R3JvdXBBZGRvblZhcmlhbnRzPikge1xuICByZXR1cm4gKFxuICAgIDxkaXZcbiAgICAgIHJvbGU9XCJncm91cFwiXG4gICAgICBkYXRhLXNsb3Q9XCJpbnB1dC1ncm91cC1hZGRvblwiXG4gICAgICBkYXRhLWFsaWduPXthbGlnbn1cbiAgICAgIGNsYXNzTmFtZT17Y24oaW5wdXRHcm91cEFkZG9uVmFyaWFudHMoeyBhbGlnbiB9KSwgY2xhc3NOYW1lKX1cbiAgICAgIG9uQ2xpY2s9eyhlKSA9PiB7XG4gICAgICAgIGlmICgoZS50YXJnZXQgYXMgSFRNTEVsZW1lbnQpLmNsb3Nlc3QoXCJidXR0b25cIikpIHtcbiAgICAgICAgICByZXR1cm5cbiAgICAgICAgfVxuICAgICAgICBlLmN1cnJlbnRUYXJnZXQucGFyZW50RWxlbWVudD8ucXVlcnlTZWxlY3RvcihcImlucHV0XCIpPy5mb2N1cygpXG4gICAgICB9fVxuICAgICAgey4uLnByb3BzfVxuICAgIC8+XG4gIClcbn1cblxuY29uc3QgaW5wdXRHcm91cEJ1dHRvblZhcmlhbnRzID0gY3ZhKFxuICBcImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIHRleHQtc20gc2hhZG93LW5vbmVcIixcbiAge1xuICAgIHZhcmlhbnRzOiB7XG4gICAgICBzaXplOiB7XG4gICAgICAgIHhzOiBcImgtNiBnYXAtMSByb3VuZGVkLVtjYWxjKHZhcigtLXJhZGl1cyktNXB4KV0gcHgtMiBoYXMtWz5zdmddOnB4LTIgWyY+c3ZnOm5vdChbY2xhc3MqPSdzaXplLSddKV06c2l6ZS0zLjVcIixcbiAgICAgICAgc206IFwiaC04IGdhcC0xLjUgcm91bmRlZC1tZCBweC0yLjUgaGFzLVs+c3ZnXTpweC0yLjVcIixcbiAgICAgICAgXCJpY29uLXhzXCI6XG4gICAgICAgICAgXCJzaXplLTYgcm91bmRlZC1bY2FsYyh2YXIoLS1yYWRpdXMpLTVweCldIHAtMCBoYXMtWz5zdmddOnAtMFwiLFxuICAgICAgICBcImljb24tc21cIjogXCJzaXplLTggcC0wIGhhcy1bPnN2Z106cC0wXCIsXG4gICAgICB9LFxuICAgIH0sXG4gICAgZGVmYXVsdFZhcmlhbnRzOiB7XG4gICAgICBzaXplOiBcInhzXCIsXG4gICAgfSxcbiAgfVxuKVxuXG5mdW5jdGlvbiBJbnB1dEdyb3VwQnV0dG9uKHtcbiAgY2xhc3NOYW1lLFxuICB0eXBlID0gXCJidXR0b25cIixcbiAgdmFyaWFudCA9IFwiZ2hvc3RcIixcbiAgc2l6ZSA9IFwieHNcIixcbiAgLi4ucHJvcHNcbn06IE9taXQ8UmVhY3QuQ29tcG9uZW50UHJvcHM8dHlwZW9mIEJ1dHRvbj4sIFwic2l6ZVwiPiAmXG4gIFZhcmlhbnRQcm9wczx0eXBlb2YgaW5wdXRHcm91cEJ1dHRvblZhcmlhbnRzPikge1xuICByZXR1cm4gKFxuICAgIDxCdXR0b25cbiAgICAgIHR5cGU9e3R5cGV9XG4gICAgICBkYXRhLXNpemU9e3NpemV9XG4gICAgICB2YXJpYW50PXt2YXJpYW50fVxuICAgICAgY2xhc3NOYW1lPXtjbihpbnB1dEdyb3VwQnV0dG9uVmFyaWFudHMoeyBzaXplIH0pLCBjbGFzc05hbWUpfVxuICAgICAgey4uLnByb3BzfVxuICAgIC8+XG4gIClcbn1cblxuZnVuY3Rpb24gSW5wdXRHcm91cFRleHQoeyBjbGFzc05hbWUsIC4uLnByb3BzIH06IFJlYWN0LkNvbXBvbmVudFByb3BzPFwic3BhblwiPikge1xuICByZXR1cm4gKFxuICAgIDxzcGFuXG4gICAgICBjbGFzc05hbWU9e2NuKFxuICAgICAgICBcInRleHQtbXV0ZWQtZm9yZWdyb3VuZCBmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiB0ZXh0LXNtIFsmX3N2Zzpub3QoW2NsYXNzKj0nc2l6ZS0nXSldOnNpemUtNCBbJl9zdmddOnBvaW50ZXItZXZlbnRzLW5vbmVcIixcbiAgICAgICAgY2xhc3NOYW1lXG4gICAgICApfVxuICAgICAgey4uLnByb3BzfVxuICAgIC8+XG4gIClcbn1cblxuY29uc3QgSW5wdXRHcm91cElucHV0ID0gUmVhY3QuZm9yd2FyZFJlZjxIVE1MSW5wdXRFbGVtZW50LCBSZWFjdC5Db21wb25lbnRQcm9wczxcImlucHV0XCI+PihcbiAgKHsgY2xhc3NOYW1lLCAuLi5wcm9wcyB9LCByZWYpID0+IHtcbiAgICByZXR1cm4gKFxuICAgICAgPElucHV0XG4gICAgICAgIGRhdGEtc2xvdD1cImlucHV0LWdyb3VwLWNvbnRyb2xcIlxuICAgICAgICBjbGFzc05hbWU9e2NuKFxuICAgICAgICAgIFwiZmxleC0xIHJvdW5kZWQtbm9uZSBib3JkZXItMCBiZy10cmFuc3BhcmVudCBzaGFkb3ctbm9uZSBmb2N1cy12aXNpYmxlOnJpbmctMCBkYXJrOmJnLXRyYW5zcGFyZW50XCIsXG4gICAgICAgICAgY2xhc3NOYW1lXG4gICAgICAgICl9XG4gICAgICAgIHJlZj17cmVmfVxuICAgICAgICB7Li4ucHJvcHN9XG4gICAgICAvPlxuICAgIClcbiAgfVxuKVxuSW5wdXRHcm91cElucHV0LmRpc3BsYXlOYW1lID0gXCJJbnB1dEdyb3VwSW5wdXRcIlxuXG5jb25zdCBJbnB1dEdyb3VwVGV4dGFyZWEgPSBSZWFjdC5mb3J3YXJkUmVmPEhUTUxUZXh0QXJlYUVsZW1lbnQsIFJlYWN0LkNvbXBvbmVudFByb3BzPFwidGV4dGFyZWFcIj4+KFxuICAoeyBjbGFzc05hbWUsIC4uLnByb3BzIH0sIHJlZikgPT4ge1xuICAgIHJldHVybiAoXG4gICAgICA8VGV4dGFyZWFcbiAgICAgICAgZGF0YS1zbG90PVwiaW5wdXQtZ3JvdXAtY29udHJvbFwiXG4gICAgICAgIGNsYXNzTmFtZT17Y24oXG4gICAgICAgICAgXCJmbGV4LTEgcmVzaXplLW5vbmUgcm91bmRlZC1ub25lIGJvcmRlci0wIGJnLXRyYW5zcGFyZW50IHB5LTMgc2hhZG93LW5vbmUgZm9jdXMtdmlzaWJsZTpyaW5nLTAgZGFyazpiZy10cmFuc3BhcmVudFwiLFxuICAgICAgICAgIGNsYXNzTmFtZVxuICAgICAgICApfVxuICAgICAgICByZWY9e3JlZn1cbiAgICAgICAgey4uLnByb3BzfVxuICAgICAgLz5cbiAgICApXG4gIH1cbilcbklucHV0R3JvdXBUZXh0YXJlYS5kaXNwbGF5TmFtZSA9IFwiSW5wdXRHcm91cFRleHRhcmVhXCJcblxuZXhwb3J0IHtcbiAgSW5wdXRHcm91cCxcbiAgSW5wdXRHcm91cEFkZG9uLFxuICBJbnB1dEdyb3VwQnV0dG9uLFxuICBJbnB1dEdyb3VwVGV4dCxcbiAgSW5wdXRHcm91cElucHV0LFxuICBJbnB1dEdyb3VwVGV4dGFyZWEsXG59XG4iXX0=

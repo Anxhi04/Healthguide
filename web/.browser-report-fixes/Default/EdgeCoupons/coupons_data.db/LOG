@@ -1,0 +1,5 @@
+2026/09/17-20:06:28.432 3a60 Creating DB C:\Users\User\Desktop\diploma\web\.browser-report-fixes\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/09/17-20:06:29.858 3a60 Reusing MANIFEST C:\Users\User\Desktop\diploma\web\.browser-report-fixes\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/09/17-20:06:30.645 3c40 Level-0 table #5: started
+2026/09/17-20:06:30.649 3c40 Level-0 table #5: 683273 bytes OK
+2026/09/17-20:06:30.650 3c40 Delete type=0 #3

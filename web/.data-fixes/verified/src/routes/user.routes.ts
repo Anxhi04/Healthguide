@@ -1,0 +1,47 @@
+import { getPublicPosts, updatePhoneVisibility } from "../controllers/publicProfile.controller";
+import { Router, raw } from "express";
+import { uploadPhoto, deletePhoto } from "../controllers/profilePhoto.controller";
+import {
+    getUser,
+    getPublicUser,
+    getCurrentUser,
+    editUser,
+    removeUser,
+    createNewUser,
+    createNewUserByAdmin,
+    getUsers
+} from "../controllers/user.controller";
+import { authenticate } from "../middleware/auth.middleware";
+import { requireRole } from "../middleware/role.middleware";
+import { Role } from "../enums/enums";
+
+const router= Router();
+const optionalAuth = (req: Parameters<typeof authenticate>[0], res: Parameters<typeof authenticate>[1], next: Parameters<typeof authenticate>[2]) =>
+    req.headers.authorization ? authenticate(req, res, next) : next();
+
+router.post("/",
+    authenticate,
+    createNewUser
+);
+router.post(
+  "/admin",
+  authenticate,
+  createNewUserByAdmin
+);
+router.get("/me", authenticate, getCurrentUser);
+router.put("/me/privacy", authenticate, updatePhoneVisibility);
+router.put("/me/photo", authenticate, raw({ type: ["image/jpeg", "image/png", "image/webp"], limit: "5mb" }), uploadPhoto);
+router.delete("/me/photo", authenticate, deletePhoto);
+router.get("/:id/public", getPublicUser);
+router.get("/:id/public/posts", optionalAuth, getPublicPosts);
+router.get("/:id", authenticate, getUser);
+router.put("/:id",
+    authenticate,
+    editUser
+);
+router.get("/", authenticate, getUsers);
+router.delete("/:id",
+    authenticate, 
+    removeUser
+);
+export default router;

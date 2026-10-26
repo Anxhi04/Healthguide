@@ -1,0 +1,13 @@
+2026/09/17-22:07:25.505 3e20 Reusing MANIFEST C:\Users\User\Desktop\diploma\web\.browser-specialties\Default\IndexedDB\http_127.0.0.1_5173.indexeddb.leveldb/MANIFEST-000001
+2026/09/17-22:07:25.507 3e20 Recovering log #6
+2026/09/17-22:07:25.515 3e20 Reusing old log C:\Users\User\Desktop\diploma\web\.browser-specialties\Default\IndexedDB\http_127.0.0.1_5173.indexeddb.leveldb/000006.log 
+2026/09/17-22:07:25.569 3e20 Level-0 table #10: started
+2026/09/17-22:07:25.575 3e20 Level-0 table #10: 1004 bytes OK
+2026/09/17-22:07:25.577 3e20 Delete type=0 #6
+2026/09/17-22:07:25.577 5dcc Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at '\x00\x05\x00\x00\x05' @ 165 : 1
+2026/09/17-22:07:25.577 5dcc Compacting 1@0 + 1@1 files
+2026/09/17-22:07:25.579 5dcc Generated table #11@0: 57 keys, 1408 bytes
+2026/09/17-22:07:25.579 5dcc Compacted 1@0 + 1@1 files => 1408 bytes
+2026/09/17-22:07:25.580 5dcc compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/09/17-22:07:25.580 5dcc Delete type=2 #10
+2026/09/17-22:07:25.580 5dcc Manual compaction at level-0 from '\x00\x05\x00\x00\x05' @ 165 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)

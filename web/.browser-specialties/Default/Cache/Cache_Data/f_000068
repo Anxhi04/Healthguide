@@ -1,0 +1,331 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/pages/hospital_admin/SpecialitiesPage.tsx");const useEffect = __vite__cjsImport0_react["useEffect"]; const useState = __vite__cjsImport0_react["useState"];const _jsxDEV = __vite__cjsImport9_react_jsxDevRuntime["jsxDEV"];import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=ea7b1706";
+import axios from "/node_modules/.vite/deps/axios.js?v=80ea18f7";
+import { Button } from "/src/components/ui/button.tsx";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "/src/components/ui/alert-dialog.tsx";
+import { useHospitalContext } from "/src/contexts/HospitalContext.tsx?t=1789669233413";
+import { HospitalSpecialityService } from "/src/services/hospitalSpecialityService.ts?t=1789671707825";
+import PageIntro from "/src/pages/hospital_admin/components/PageIntro.tsx";
+import AddSpecialityModal from "/src/pages/hospital_admin/components/addSpeciality.tsx?t=1789671707825";
+import SpecialityDetailsModal from "/src/pages/hospital_admin/components/speciality/SpecialityDetailsModal.tsx";
+var _jsxFileName = "C:/Users/User/Desktop/diploma/web/src/pages/hospital_admin/SpecialitiesPage.tsx";
+import __vite__cjsImport9_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=ea7b1706";
+var _s = $RefreshSig$(), _s2 = $RefreshSig$();
+const errorMessage = (error, fallback) => axios.isAxiosError(error) && typeof error.response?.data?.message === "string" ? error.response.data.message : fallback;
+export default function SpecialitiesPage() {
+	_s();
+	const { hospital, loading: hospitalLoading } = useHospitalContext();
+	if (hospitalLoading) return /* @__PURE__ */ _jsxDEV("p", {
+		role: "status",
+		className: "p-6",
+		children: "Loading hospital…"
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 15,
+		columnNumber: 33
+	}, this);
+	if (!hospital) return /* @__PURE__ */ _jsxDEV("p", {
+		role: "alert",
+		className: "p-6 text-red-600",
+		children: "Hospital not found."
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 16,
+		columnNumber: 27
+	}, this);
+	return /* @__PURE__ */ _jsxDEV(HospitalSpecialitiesContent, { hospitalId: hospital.id }, hospital.id, false, {
+		fileName: _jsxFileName,
+		lineNumber: 17,
+		columnNumber: 12
+	}, this);
+}
+_s(SpecialitiesPage, "kmSkutK1P7MirHXjhgh3wK/f5YQ=", false, function() {
+	return [useHospitalContext];
+});
+_c = SpecialitiesPage;
+function HospitalSpecialitiesContent({ hospitalId }) {
+	_s2();
+	const [specialities, setSpecialities] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [addOpen, setAddOpen] = useState(false);
+	const [selected, setSelected] = useState(null);
+	const [removing, setRemoving] = useState(null);
+	const [busy, setBusy] = useState(false);
+	const [removeError, setRemoveError] = useState(null);
+	const [attempt, setAttempt] = useState(0);
+	useEffect(() => {
+		let active = true;
+		HospitalSpecialityService.getSpecialitiesByHospitalId(hospitalId).then((data) => {
+			if (active) setSpecialities(data);
+		}).catch((error) => {
+			if (active) setError(errorMessage(error, "Could not load specialities. Please try again."));
+		}).finally(() => {
+			if (active) setLoading(false);
+		});
+		return () => {
+			active = false;
+		};
+	}, [hospitalId, attempt]);
+	const requestRemoval = (speciality) => {
+		setRemoveError(null);
+		setRemoving(speciality);
+	};
+	const remove = async () => {
+		if (!removing?.hospitalSpecialityId || busy) return;
+		setBusy(true);
+		setRemoveError(null);
+		try {
+			await HospitalSpecialityService.deleteHospitalSpeciality(removing.hospitalSpecialityId);
+			setSpecialities((items) => items.filter((item) => item.id !== removing.id));
+			if (selected?.id === removing.id) setSelected(null);
+			setRemoving(null);
+		} catch (error) {
+			setRemoveError(errorMessage(error, "Could not remove the specialty. Please try again."));
+		} finally {
+			setBusy(false);
+		}
+	};
+	return /* @__PURE__ */ _jsxDEV("div", {
+		className: "min-h-screen bg-slate-50",
+		children: [
+			/* @__PURE__ */ _jsxDEV("div", {
+				className: "container mx-auto max-w-6xl space-y-6 px-4 py-6",
+				children: [/* @__PURE__ */ _jsxDEV(PageIntro, {
+					title: "Specialities & Doctors",
+					description: "Manage the specialities and doctors available at your hospital.",
+					action: "Add Speciality",
+					onAction: () => setAddOpen(true)
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 51,
+					columnNumber: 9
+				}, this), /* @__PURE__ */ _jsxDEV("div", {
+					className: "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm",
+					children: loading ? /* @__PURE__ */ _jsxDEV("p", {
+						role: "status",
+						className: "p-6 text-sm text-slate-500",
+						children: "Loading specialities…"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 53,
+						columnNumber: 24
+					}, this) : error ? /* @__PURE__ */ _jsxDEV("div", {
+						role: "alert",
+						className: "space-y-3 p-6 text-red-600",
+						children: [/* @__PURE__ */ _jsxDEV("p", { children: error }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 53,
+							columnNumber: 173
+						}, this), /* @__PURE__ */ _jsxDEV(Button, {
+							variant: "outline",
+							onClick: () => {
+								setLoading(true);
+								setError(null);
+								setAttempt((value) => value + 1);
+							},
+							children: "Retry"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 53,
+							columnNumber: 187
+						}, this)]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 53,
+						columnNumber: 116
+					}, this) : specialities.length === 0 ? /* @__PURE__ */ _jsxDEV("p", {
+						className: "p-6 text-center text-sm text-slate-500",
+						children: "No specialities found for this hospital."
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 53,
+						columnNumber: 350
+					}, this) : specialities.map((speciality) => /* @__PURE__ */ _jsxDEV("div", {
+						className: "flex flex-col gap-4 border-b border-slate-100 p-5 last:border-0 sm:flex-row sm:items-center sm:justify-between",
+						children: [/* @__PURE__ */ _jsxDEV("button", {
+							type: "button",
+							className: "min-w-0 flex-1 rounded-md text-left focus-visible:outline-2 focus-visible:outline-blue-600",
+							onClick: () => setSelected(speciality),
+							children: [/* @__PURE__ */ _jsxDEV("h2", {
+								className: "font-semibold text-slate-900 hover:text-blue-700",
+								children: speciality.name
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 55,
+								columnNumber: 21
+							}, this), speciality.description && /* @__PURE__ */ _jsxDEV("p", {
+								className: "mt-1 text-sm text-slate-600",
+								children: speciality.description
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 56,
+								columnNumber: 48
+							}, this)]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 54,
+							columnNumber: 17
+						}, this), /* @__PURE__ */ _jsxDEV("div", {
+							className: "flex gap-2",
+							children: [/* @__PURE__ */ _jsxDEV(Button, {
+								variant: "outline",
+								onClick: () => setSelected(speciality),
+								children: "View details"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 58,
+								columnNumber: 45
+							}, this), /* @__PURE__ */ _jsxDEV(Button, {
+								variant: "destructive",
+								disabled: !speciality.hospitalSpecialityId,
+								onClick: () => requestRemoval(speciality),
+								children: "Remove specialty"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 58,
+								columnNumber: 132
+							}, this)]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 58,
+							columnNumber: 17
+						}, this)]
+					}, speciality.id, true, {
+						fileName: _jsxFileName,
+						lineNumber: 53,
+						columnNumber: 482
+					}, this))
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 52,
+					columnNumber: 9
+				}, this)]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 50,
+				columnNumber: 54
+			}, this),
+			/* @__PURE__ */ _jsxDEV(AddSpecialityModal, {
+				open: addOpen,
+				onOpenChange: setAddOpen,
+				hospitalId,
+				onSuccess: async () => {
+					setSpecialities(await HospitalSpecialityService.getSpecialitiesByHospitalId(hospitalId));
+				}
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 62,
+				columnNumber: 9
+			}, this),
+			selected && /* @__PURE__ */ _jsxDEV(SpecialityDetailsModal, {
+				speciality: selected,
+				hospitalId,
+				onClose: () => setSelected(null),
+				onRemoveSpeciality: () => requestRemoval(selected)
+			}, `${hospitalId}:${selected.id}`, false, {
+				fileName: _jsxFileName,
+				lineNumber: 63,
+				columnNumber: 22
+			}, this),
+			/* @__PURE__ */ _jsxDEV(AlertDialog, {
+				open: !!removing,
+				onOpenChange: (open) => {
+					if (!open && !busy) setRemoving(null);
+				},
+				children: /* @__PURE__ */ _jsxDEV(AlertDialogContent, { children: [
+					/* @__PURE__ */ _jsxDEV(AlertDialogHeader, { children: [/* @__PURE__ */ _jsxDEV(AlertDialogTitle, { children: [
+						"Remove ",
+						removing?.name,
+						" from this hospital?"
+					] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 65,
+						columnNumber: 52
+					}, this), /* @__PURE__ */ _jsxDEV(AlertDialogDescription, { children: "The specialty will remain available globally. Doctor records, their other specialties and other hospitals are preserved." }, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 65,
+						columnNumber: 132
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 65,
+						columnNumber: 33
+					}, this),
+					removeError && /* @__PURE__ */ _jsxDEV("p", {
+						role: "alert",
+						className: "text-sm text-red-600",
+						children: removeError
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 66,
+						columnNumber: 33
+					}, this),
+					/* @__PURE__ */ _jsxDEV(AlertDialogFooter, { children: [/* @__PURE__ */ _jsxDEV(AlertDialogCancel, {
+						disabled: busy,
+						children: "Cancel"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 67,
+						columnNumber: 36
+					}, this), /* @__PURE__ */ _jsxDEV(AlertDialogAction, {
+						disabled: busy,
+						className: "bg-red-600 hover:bg-red-700",
+						onClick: (event) => {
+							event.preventDefault();
+							void remove();
+						},
+						children: busy ? "Removing…" : "Remove specialty"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 67,
+						columnNumber: 97
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 67,
+						columnNumber: 17
+					}, this)
+				] }, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 65,
+					columnNumber: 13
+				}, this)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 64,
+				columnNumber: 9
+			}, this)
+		]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 50,
+		columnNumber: 12
+	}, this);
+}
+_s2(HospitalSpecialitiesContent, "o71PL/VUK8F8+45qs4UHmCMnxZc=");
+_c2 = HospitalSpecialitiesContent;
+var _c, _c2;
+$RefreshReg$(_c, "SpecialitiesPage");
+$RefreshReg$(_c2, "HospitalSpecialitiesContent");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/pages/hospital_admin/SpecialitiesPage.tsx?t=1789671873223";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/User/Desktop/diploma/web/src/pages/hospital_admin/SpecialitiesPage.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/User/Desktop/diploma/web/src/pages/hospital_admin/SpecialitiesPage.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "C:/Users/User/Desktop/diploma/web/src/pages/hospital_admin/SpecialitiesPage.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,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LENBQUM7SUFBRztHQUFJOzs7OztHQUMzTSxZQUFZLHdCQUFDLHdCQUFEO0lBQTZELFlBQVk7SUFBc0I7SUFBWSxlQUFlLFlBQVksSUFBSTtJQUFHLDBCQUEwQixlQUFlLFFBQVE7R0FBSSxHQUFySyxHQUFHLFdBQVcsR0FBRyxTQUFTOzs7O1VBQTJJO0dBQy9NLHdCQUFDLGFBQUQ7SUFBYSxNQUFNLENBQUMsQ0FBQztJQUFVLGVBQWMsU0FBUTtLQUFFLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTSxZQUFZLElBQUk7SUFBRztjQUMxRix3QkFBQyxvQkFBRDtLQUFvQix3QkFBQyxtQkFBRCxhQUFtQix3QkFBQyxrQkFBRDtNQUFrQjtNQUFRLFVBQVU7TUFBSztLQUFzQzs7OztlQUFDLHdCQUFDLHdCQUFELFlBQXdCLDJIQUFnSjs7OzthQUFvQjs7Ozs7S0FDOVMsZUFBZSx3QkFBQyxLQUFEO01BQUcsTUFBSztNQUFRLFdBQVU7Z0JBQXdCO0tBQWU7Ozs7O0tBQ2pGLHdCQUFDLG1CQUFELGFBQW1CLHdCQUFDLG1CQUFEO01BQW1CLFVBQVU7Z0JBQU07S0FBeUI7Ozs7ZUFBQyx3QkFBQyxtQkFBRDtNQUFtQixVQUFVO01BQU0sV0FBVTtNQUE4QixVQUFTLFVBQVM7T0FBRSxNQUFNLGVBQWU7T0FBRyxLQUFLLE9BQU87TUFBRztnQkFBSSxPQUFPLGNBQWM7S0FBc0M7Ozs7YUFBb0I7Ozs7O0lBQ3pSOzs7OztHQUNYOzs7OztFQUNaOzs7Ozs7QUFDVCIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJTcGVjaWFsaXRpZXNQYWdlLnRzeCJdLCJ2ZXJzaW9uIjozLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VFZmZlY3QsIHVzZVN0YXRlIH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgYXhpb3MgZnJvbSBcImF4aW9zXCI7XG5pbXBvcnQgeyBCdXR0b24gfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2J1dHRvblwiO1xuaW1wb3J0IHsgQWxlcnREaWFsb2csIEFsZXJ0RGlhbG9nQWN0aW9uLCBBbGVydERpYWxvZ0NhbmNlbCwgQWxlcnREaWFsb2dDb250ZW50LCBBbGVydERpYWxvZ0Rlc2NyaXB0aW9uLCBBbGVydERpYWxvZ0Zvb3RlciwgQWxlcnREaWFsb2dIZWFkZXIsIEFsZXJ0RGlhbG9nVGl0bGUgfSBmcm9tIFwiQC9jb21wb25lbnRzL3VpL2FsZXJ0LWRpYWxvZ1wiO1xuaW1wb3J0IHsgdXNlSG9zcGl0YWxDb250ZXh0IH0gZnJvbSBcIkAvY29udGV4dHMvSG9zcGl0YWxDb250ZXh0XCI7XG5pbXBvcnQgeyBIb3NwaXRhbFNwZWNpYWxpdHlTZXJ2aWNlLCB0eXBlIEhvc3BpdGFsU3BlY2lhbGl0eURldGFpbHMgfSBmcm9tIFwiQC9zZXJ2aWNlcy9ob3NwaXRhbFNwZWNpYWxpdHlTZXJ2aWNlXCI7XG5pbXBvcnQgUGFnZUludHJvIGZyb20gXCIuL2NvbXBvbmVudHMvUGFnZUludHJvXCI7XG5pbXBvcnQgQWRkU3BlY2lhbGl0eU1vZGFsIGZyb20gXCIuL2NvbXBvbmVudHMvYWRkU3BlY2lhbGl0eVwiO1xuaW1wb3J0IFNwZWNpYWxpdHlEZXRhaWxzTW9kYWwgZnJvbSBcIi4vY29tcG9uZW50cy9zcGVjaWFsaXR5L1NwZWNpYWxpdHlEZXRhaWxzTW9kYWxcIjtcblxuY29uc3QgZXJyb3JNZXNzYWdlID0gKGVycm9yOiB1bmtub3duLCBmYWxsYmFjazogc3RyaW5nKSA9PiBheGlvcy5pc0F4aW9zRXJyb3IoZXJyb3IpICYmIHR5cGVvZiBlcnJvci5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSA9PT0gXCJzdHJpbmdcIiA/IGVycm9yLnJlc3BvbnNlLmRhdGEubWVzc2FnZSA6IGZhbGxiYWNrO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBTcGVjaWFsaXRpZXNQYWdlKCkge1xuICAgIGNvbnN0IHsgaG9zcGl0YWwsIGxvYWRpbmc6IGhvc3BpdGFsTG9hZGluZyB9ID0gdXNlSG9zcGl0YWxDb250ZXh0KCk7XG4gICAgaWYgKGhvc3BpdGFsTG9hZGluZykgcmV0dXJuIDxwIHJvbGU9XCJzdGF0dXNcIiBjbGFzc05hbWU9XCJwLTZcIj5Mb2FkaW5nIGhvc3BpdGFs4oCmPC9wPjtcbiAgICBpZiAoIWhvc3BpdGFsKSByZXR1cm4gPHAgcm9sZT1cImFsZXJ0XCIgY2xhc3NOYW1lPVwicC02IHRleHQtcmVkLTYwMFwiPkhvc3BpdGFsIG5vdCBmb3VuZC48L3A+O1xuICAgIHJldHVybiA8SG9zcGl0YWxTcGVjaWFsaXRpZXNDb250ZW50IGtleT17aG9zcGl0YWwuaWR9IGhvc3BpdGFsSWQ9e2hvc3BpdGFsLmlkfSAvPjtcbn1cblxuZnVuY3Rpb24gSG9zcGl0YWxTcGVjaWFsaXRpZXNDb250ZW50KHsgaG9zcGl0YWxJZCB9OiB7IGhvc3BpdGFsSWQ6IHN0cmluZyB9KSB7XG4gICAgY29uc3QgW3NwZWNpYWxpdGllcywgc2V0U3BlY2lhbGl0aWVzXSA9IHVzZVN0YXRlPEhvc3BpdGFsU3BlY2lhbGl0eURldGFpbHNbXT4oW10pO1xuICAgIGNvbnN0IFtsb2FkaW5nLCBzZXRMb2FkaW5nXSA9IHVzZVN0YXRlKHRydWUpO1xuICAgIGNvbnN0IFtlcnJvciwgc2V0RXJyb3JdID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7XG4gICAgY29uc3QgW2FkZE9wZW4sIHNldEFkZE9wZW5dID0gdXNlU3RhdGUoZmFsc2UpO1xuICAgIGNvbnN0IFtzZWxlY3RlZCwgc2V0U2VsZWN0ZWRdID0gdXNlU3RhdGU8SG9zcGl0YWxTcGVjaWFsaXR5RGV0YWlscyB8IG51bGw+KG51bGwpO1xuICAgIGNvbnN0IFtyZW1vdmluZywgc2V0UmVtb3ZpbmddID0gdXNlU3RhdGU8SG9zcGl0YWxTcGVjaWFsaXR5RGV0YWlscyB8IG51bGw+KG51bGwpO1xuICAgIGNvbnN0IFtidXN5LCBzZXRCdXN5XSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgICBjb25zdCBbcmVtb3ZlRXJyb3IsIHNldFJlbW92ZUVycm9yXSA9IHVzZVN0YXRlPHN0cmluZyB8IG51bGw+KG51bGwpO1xuICAgIGNvbnN0IFthdHRlbXB0LCBzZXRBdHRlbXB0XSA9IHVzZVN0YXRlKDApO1xuICAgIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgICAgIGxldCBhY3RpdmUgPSB0cnVlO1xuICAgICAgICBIb3NwaXRhbFNwZWNpYWxpdHlTZXJ2aWNlLmdldFNwZWNpYWxpdGllc0J5SG9zcGl0YWxJZChob3NwaXRhbElkKVxuICAgICAgICAgICAgLnRoZW4oZGF0YSA9PiB7IGlmIChhY3RpdmUpIHNldFNwZWNpYWxpdGllcyhkYXRhKTsgfSlcbiAgICAgICAgICAgIC5jYXRjaChlcnJvciA9PiB7IGlmIChhY3RpdmUpIHNldEVycm9yKGVycm9yTWVzc2FnZShlcnJvciwgXCJDb3VsZCBub3QgbG9hZCBzcGVjaWFsaXRpZXMuIFBsZWFzZSB0cnkgYWdhaW4uXCIpKTsgfSlcbiAgICAgICAgICAgIC5maW5hbGx5KCgpID0+IHsgaWYgKGFjdGl2ZSkgc2V0TG9hZGluZyhmYWxzZSk7IH0pO1xuICAgICAgICByZXR1cm4gKCkgPT4geyBhY3RpdmUgPSBmYWxzZTsgfTtcbiAgICB9LCBbaG9zcGl0YWxJZCwgYXR0ZW1wdF0pO1xuICAgIGNvbnN0IHJlcXVlc3RSZW1vdmFsID0gKHNwZWNpYWxpdHk6IEhvc3BpdGFsU3BlY2lhbGl0eURldGFpbHMpID0+IHsgc2V0UmVtb3ZlRXJyb3IobnVsbCk7IHNldFJlbW92aW5nKHNwZWNpYWxpdHkpOyB9O1xuICAgIGNvbnN0IHJlbW92ZSA9IGFzeW5jICgpID0+IHtcbiAgICAgICAgaWYgKCFyZW1vdmluZz8uaG9zcGl0YWxTcGVjaWFsaXR5SWQgfHwgYnVzeSkgcmV0dXJuO1xuICAgICAgICBzZXRCdXN5KHRydWUpOyBzZXRSZW1vdmVFcnJvcihudWxsKTtcbiAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IEhvc3BpdGFsU3BlY2lhbGl0eVNlcnZpY2UuZGVsZXRlSG9zcGl0YWxTcGVjaWFsaXR5KHJlbW92aW5nLmhvc3BpdGFsU3BlY2lhbGl0eUlkKTtcbiAgICAgICAgICAgIHNldFNwZWNpYWxpdGllcyhpdGVtcyA9PiBpdGVtcy5maWx0ZXIoaXRlbSA9PiBpdGVtLmlkICE9PSByZW1vdmluZy5pZCkpO1xuICAgICAgICAgICAgaWYgKHNlbGVjdGVkPy5pZCA9PT0gcmVtb3ZpbmcuaWQpIHNldFNlbGVjdGVkKG51bGwpO1xuICAgICAgICAgICAgc2V0UmVtb3ZpbmcobnVsbCk7XG4gICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7IHNldFJlbW92ZUVycm9yKGVycm9yTWVzc2FnZShlcnJvciwgXCJDb3VsZCBub3QgcmVtb3ZlIHRoZSBzcGVjaWFsdHkuIFBsZWFzZSB0cnkgYWdhaW4uXCIpKTsgfVxuICAgICAgICBmaW5hbGx5IHsgc2V0QnVzeShmYWxzZSk7IH1cbiAgICB9O1xuICAgIHJldHVybiA8ZGl2IGNsYXNzTmFtZT1cIm1pbi1oLXNjcmVlbiBiZy1zbGF0ZS01MFwiPjxkaXYgY2xhc3NOYW1lPVwiY29udGFpbmVyIG14LWF1dG8gbWF4LXctNnhsIHNwYWNlLXktNiBweC00IHB5LTZcIj5cbiAgICAgICAgPFBhZ2VJbnRybyB0aXRsZT1cIlNwZWNpYWxpdGllcyAmIERvY3RvcnNcIiBkZXNjcmlwdGlvbj1cIk1hbmFnZSB0aGUgc3BlY2lhbGl0aWVzIGFuZCBkb2N0b3JzIGF2YWlsYWJsZSBhdCB5b3VyIGhvc3BpdGFsLlwiIGFjdGlvbj1cIkFkZCBTcGVjaWFsaXR5XCIgb25BY3Rpb249eygpID0+IHNldEFkZE9wZW4odHJ1ZSl9IC8+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwib3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQteGwgYm9yZGVyIGJvcmRlci1zbGF0ZS0yMDAgYmctd2hpdGUgc2hhZG93LXNtXCI+XG4gICAgICAgICAgICB7bG9hZGluZyA/IDxwIHJvbGU9XCJzdGF0dXNcIiBjbGFzc05hbWU9XCJwLTYgdGV4dC1zbSB0ZXh0LXNsYXRlLTUwMFwiPkxvYWRpbmcgc3BlY2lhbGl0aWVz4oCmPC9wPiA6IGVycm9yID8gPGRpdiByb2xlPVwiYWxlcnRcIiBjbGFzc05hbWU9XCJzcGFjZS15LTMgcC02IHRleHQtcmVkLTYwMFwiPjxwPntlcnJvcn08L3A+PEJ1dHRvbiB2YXJpYW50PVwib3V0bGluZVwiIG9uQ2xpY2s9eygpID0+IHsgc2V0TG9hZGluZyh0cnVlKTsgc2V0RXJyb3IobnVsbCk7IHNldEF0dGVtcHQodmFsdWUgPT4gdmFsdWUgKyAxKTsgfX0+UmV0cnk8L0J1dHRvbj48L2Rpdj4gOiBzcGVjaWFsaXRpZXMubGVuZ3RoID09PSAwID8gPHAgY2xhc3NOYW1lPVwicC02IHRleHQtY2VudGVyIHRleHQtc20gdGV4dC1zbGF0ZS01MDBcIj5ObyBzcGVjaWFsaXRpZXMgZm91bmQgZm9yIHRoaXMgaG9zcGl0YWwuPC9wPiA6IHNwZWNpYWxpdGllcy5tYXAoc3BlY2lhbGl0eSA9PiA8ZGl2IGtleT17c3BlY2lhbGl0eS5pZH0gY2xhc3NOYW1lPVwiZmxleCBmbGV4LWNvbCBnYXAtNCBib3JkZXItYiBib3JkZXItc2xhdGUtMTAwIHAtNSBsYXN0OmJvcmRlci0wIHNtOmZsZXgtcm93IHNtOml0ZW1zLWNlbnRlciBzbTpqdXN0aWZ5LWJldHdlZW5cIj5cbiAgICAgICAgICAgICAgICA8YnV0dG9uIHR5cGU9XCJidXR0b25cIiBjbGFzc05hbWU9XCJtaW4tdy0wIGZsZXgtMSByb3VuZGVkLW1kIHRleHQtbGVmdCBmb2N1cy12aXNpYmxlOm91dGxpbmUtMiBmb2N1cy12aXNpYmxlOm91dGxpbmUtYmx1ZS02MDBcIiBvbkNsaWNrPXsoKSA9PiBzZXRTZWxlY3RlZChzcGVjaWFsaXR5KX0+XG4gICAgICAgICAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJmb250LXNlbWlib2xkIHRleHQtc2xhdGUtOTAwIGhvdmVyOnRleHQtYmx1ZS03MDBcIj57c3BlY2lhbGl0eS5uYW1lfTwvaDI+XG4gICAgICAgICAgICAgICAgICAgIHtzcGVjaWFsaXR5LmRlc2NyaXB0aW9uICYmIDxwIGNsYXNzTmFtZT1cIm10LTEgdGV4dC1zbSB0ZXh0LXNsYXRlLTYwMFwiPntzcGVjaWFsaXR5LmRlc2NyaXB0aW9ufTwvcD59XG4gICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGdhcC0yXCI+PEJ1dHRvbiB2YXJpYW50PVwib3V0bGluZVwiIG9uQ2xpY2s9eygpID0+IHNldFNlbGVjdGVkKHNwZWNpYWxpdHkpfT5WaWV3IGRldGFpbHM8L0J1dHRvbj48QnV0dG9uIHZhcmlhbnQ9XCJkZXN0cnVjdGl2ZVwiIGRpc2FibGVkPXshc3BlY2lhbGl0eS5ob3NwaXRhbFNwZWNpYWxpdHlJZH0gb25DbGljaz17KCkgPT4gcmVxdWVzdFJlbW92YWwoc3BlY2lhbGl0eSl9PlJlbW92ZSBzcGVjaWFsdHk8L0J1dHRvbj48L2Rpdj5cbiAgICAgICAgICAgIDwvZGl2Pil9XG4gICAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICAgICAgICA8QWRkU3BlY2lhbGl0eU1vZGFsIG9wZW49e2FkZE9wZW59IG9uT3BlbkNoYW5nZT17c2V0QWRkT3Blbn0gaG9zcGl0YWxJZD17aG9zcGl0YWxJZH0gb25TdWNjZXNzPXthc3luYyAoKSA9PiB7IHNldFNwZWNpYWxpdGllcyhhd2FpdCBIb3NwaXRhbFNwZWNpYWxpdHlTZXJ2aWNlLmdldFNwZWNpYWxpdGllc0J5SG9zcGl0YWxJZChob3NwaXRhbElkKSk7IH19IC8+XG4gICAgICAgIHtzZWxlY3RlZCAmJiA8U3BlY2lhbGl0eURldGFpbHNNb2RhbCBrZXk9e2Ake2hvc3BpdGFsSWR9OiR7c2VsZWN0ZWQuaWR9YH0gc3BlY2lhbGl0eT17c2VsZWN0ZWR9IGhvc3BpdGFsSWQ9e2hvc3BpdGFsSWR9IG9uQ2xvc2U9eygpID0+IHNldFNlbGVjdGVkKG51bGwpfSBvblJlbW92ZVNwZWNpYWxpdHk9eygpID0+IHJlcXVlc3RSZW1vdmFsKHNlbGVjdGVkKX0gLz59XG4gICAgICAgIDxBbGVydERpYWxvZyBvcGVuPXshIXJlbW92aW5nfSBvbk9wZW5DaGFuZ2U9e29wZW4gPT4geyBpZiAoIW9wZW4gJiYgIWJ1c3kpIHNldFJlbW92aW5nKG51bGwpOyB9fT5cbiAgICAgICAgICAgIDxBbGVydERpYWxvZ0NvbnRlbnQ+PEFsZXJ0RGlhbG9nSGVhZGVyPjxBbGVydERpYWxvZ1RpdGxlPlJlbW92ZSB7cmVtb3Zpbmc/Lm5hbWV9IGZyb20gdGhpcyBob3NwaXRhbD88L0FsZXJ0RGlhbG9nVGl0bGU+PEFsZXJ0RGlhbG9nRGVzY3JpcHRpb24+VGhlIHNwZWNpYWx0eSB3aWxsIHJlbWFpbiBhdmFpbGFibGUgZ2xvYmFsbHkuIERvY3RvciByZWNvcmRzLCB0aGVpciBvdGhlciBzcGVjaWFsdGllcyBhbmQgb3RoZXIgaG9zcGl0YWxzIGFyZSBwcmVzZXJ2ZWQuPC9BbGVydERpYWxvZ0Rlc2NyaXB0aW9uPjwvQWxlcnREaWFsb2dIZWFkZXI+XG4gICAgICAgICAgICAgICAge3JlbW92ZUVycm9yICYmIDxwIHJvbGU9XCJhbGVydFwiIGNsYXNzTmFtZT1cInRleHQtc20gdGV4dC1yZWQtNjAwXCI+e3JlbW92ZUVycm9yfTwvcD59XG4gICAgICAgICAgICAgICAgPEFsZXJ0RGlhbG9nRm9vdGVyPjxBbGVydERpYWxvZ0NhbmNlbCBkaXNhYmxlZD17YnVzeX0+Q2FuY2VsPC9BbGVydERpYWxvZ0NhbmNlbD48QWxlcnREaWFsb2dBY3Rpb24gZGlzYWJsZWQ9e2J1c3l9IGNsYXNzTmFtZT1cImJnLXJlZC02MDAgaG92ZXI6YmctcmVkLTcwMFwiIG9uQ2xpY2s9e2V2ZW50ID0+IHsgZXZlbnQucHJldmVudERlZmF1bHQoKTsgdm9pZCByZW1vdmUoKTsgfX0+e2J1c3kgPyBcIlJlbW92aW5n4oCmXCIgOiBcIlJlbW92ZSBzcGVjaWFsdHlcIn08L0FsZXJ0RGlhbG9nQWN0aW9uPjwvQWxlcnREaWFsb2dGb290ZXI+XG4gICAgICAgICAgICA8L0FsZXJ0RGlhbG9nQ29udGVudD5cbiAgICAgICAgPC9BbGVydERpYWxvZz5cbiAgICA8L2Rpdj47XG59XHJcbiJdfQ==

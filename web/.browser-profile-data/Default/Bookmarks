@@ -1,0 +1,189 @@
+{
+   "checksum": "d265c46c52d0396fc4b88e1f8af3005e",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13370284784870694",
+            "date_last_used": "13433782162630422",
+            "guid": "e5ec2cb2-561c-4ea8-beee-11b1096de018",
+            "id": "7",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "upt help zone ",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://mega.nz/folder/4hEQgI5S#Ib_PeUkA_5mR5mdTeIwgcg/folder/89sDiQBJ",
+            "visit_count": 85
+         }, {
+            "date_added": "13378848403244837",
+            "date_last_used": "13397422453519795",
+            "guid": "ff2c2346-3258-43b5-9f15-ec5e6883e315",
+            "id": "8",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "HDToday - Watch Free Movies and TVShows Online",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://hdtoday.hair/",
+            "visit_count": 5
+         }, {
+            "date_added": "13394030867916660",
+            "date_last_used": "13421948923070876",
+            "guid": "c9556d58-fd9f-4b86-a772-f6d37194abb7",
+            "id": "9",
+            "name": "DeepSeek - Into the Unknown",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://chat.deepseek.com/",
+            "visit_count": 8
+         }, {
+            "date_added": "13403889838916787",
+            "date_last_used": "0",
+            "guid": "1500ab3b-e3ca-4e57-857a-e8f035ca51f6",
+            "id": "10",
+            "name": "React Bits - Profile Card",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.reactbits.dev/components/profile-card",
+            "visit_count": 0
+         }, {
+            "date_added": "13420640753717579",
+            "date_last_used": "13421849583842821",
+            "guid": "61ba6b69-5f6c-4e66-8c67-98ab4a2e0615",
+            "id": "11",
+            "name": "DataTables | Javascript table library",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://datatables.net/",
+            "visit_count": 1
+         }, {
+            "date_added": "13421849588165645",
+            "date_last_used": "13426265109147467",
+            "guid": "4088d3b5-061d-4e60-a439-6c23bed6b3a4",
+            "id": "12",
+            "name": "nested-datatables",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://andrejgajdos.github.io/nested-datatables/",
+            "visit_count": 4
+         }, {
+            "date_added": "13423429131824339",
+            "date_last_used": "13423776622898756",
+            "guid": "ac770315-7b86-4711-8276-2bad8421da4d",
+            "id": "13",
+            "name": "algorithms leksioneyt",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://algs4.cs.princeton.edu/10fundamentals/",
+            "visit_count": 2
+         }, {
+            "date_added": "13423605514160243",
+            "date_last_used": "0",
+            "guid": "11eecb88-7a87-42b2-9070-011a7a8a9fe1",
+            "id": "14",
+            "name": "canva python",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.canva.com/design/DAHKC8SPmuk/7HJqQAQaskkvIe-sRyMViw/edit",
+            "visit_count": 1
+         }, {
+            "date_added": "13423747639798191",
+            "date_last_used": "0",
+            "guid": "b568f01c-5eaf-4722-8f36-d15cd2f77174",
+            "id": "15",
+            "name": "postman",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://krecianxhelika04-6794181.postman.co/workspace/Anxhelika-kreci's-Workspace~e748d70e-3d10-455d-8f6d-765cba864ff8/request/54865688-19f0df73-f745-4750-92a5-f1382b501ba1?sideView=agentMode",
+            "visit_count": 0
+         }, {
+            "date_added": "13426265144042066",
+            "date_last_used": "0",
+            "guid": "6e85e196-614f-4171-9db9-baf8f427287e",
+            "id": "16",
+            "name": "COS 226 Exams (Fall 2025)",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.cs.princeton.edu/courses/archive/fall25/cos226/exams.php",
+            "visit_count": 1
+         }, {
+            "date_added": "13427581401238846",
+            "date_last_used": "0",
+            "guid": "1b9b96db-b1e8-44b5-98c8-ef531da586f7",
+            "id": "17",
+            "name": "macrozone/STEPS.md at master · bradtraversy/macrozone",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://github.com/bradtraversy/macrozone/blob/master/STEPS.md",
+            "visit_count": 1
+         }, {
+            "date_added": "13433077118410324",
+            "date_last_used": "0",
+            "guid": "28bda036-d502-45fa-92a5-1f9c09e908e6",
+            "id": "18",
+            "name": "(288) How To Restore WhatsApp Messages On iPhone - YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.youtube.com/watch?v=WXZybLPdUOQ",
+            "visit_count": 1
+         } ],
+         "date_added": "13434140199465714",
+         "date_last_used": "0",
+         "date_modified": "13433077118410324",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13434140199465714",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13434140199465714",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13434140199465714",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Workspaces",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCDYHp7CgAQAAEgAqGDZMeW5XM0hHWWJlN2s3ZWIvSzhUZFE9PUgDoAYHEowBCAMShwEKHG5qZ0R1ODhlQ3J2WHA4NnBEN2ZIR2NxRnA4OD0SJGZmNjE5YzY1LTNkODUtNWU4ZC1hNGU1LTUwYjc0Mjg0ZTE3NBgAIAAoADDokbCPtzE47pewj7cxQO6XsI+3MUoceXpOQjAxY241NEE3Y1JVMHVUKy9QZ21UdFVvPWUAAAAAwj4CYAASjAEIBRKHAQocd1JCclpMKzZQQTlhdktnak5QN0pYRExjZnZzPRIkOWZlM2IyMTUtYzgyNS01ZTgwLWE0MDUtMDZlMGU1OTk4YjI0GAAgACgAMJz25+mlMzju9+fppTNA7vfn6aUzShxubXg2NXNRRHZ4SThUZ0VlditBK250dG9TbjQ9ZQAAAADCPgJgABKMAQgCEocBChxZY1NUb252RVNQd3FDczRMMmNyVmh2NjhMOTg9EiRiZjhjMGUwZi0wYmU2LTUyZmMtOGFiZC04YzM4NTYwNmU0YTUYACAAKAAw45Gwj7cxOKuXsI+3MUCrl7CPtzFKHG9QVmtod0JSYlY2NUtDV1IyK0lPTkhXb091OD1lAAAAAMI+AmAAErUBCBISsAEKHEF6ajdyTjZHOFc0clB4SDlIUGdZczl2T3dtdz0SJDI4YmRhMDM2LWQ1MDItNDVmYS05MmE1LTFmOWMwOWU5MDhlNhgAIAAoADDdr6aKhzQ46bSmioc0QOm0poqHNEocWENWdlBTcEtZaVpoS1haZDN5U0FZV1hlNWcwPVonIiX/////AAAABvpkaVJ3djVoUE1YekxZLzJZVk9iTmxXODVnejA9ZVBCw9LCPgJgBRK1AQgRErABChxwQWlyd2VlV2RlSGVNVUdrZjgrZG8rNUlvQUE9EiQxYjliOTZkYi1iMWU4LTQ0YjUtOThjOC1lZjUzMWRhNTg2ZjcYACAAKAAwppqEzPIzOKmghMzyM0CpoITM8jNKHDZPR0d3YnBFeEFxZzBoTWkxT2VIdjJxN1BGND1aJyIl/////wAAAAb0R2phWXBrVzRSU3IxTGlCTjVVbG51NmFZVE1ZPWXXkT05wj4CYAUStQEIChKwAQocWUZmdG9lQWh1NGdIdmtOMnJYMjdGdG8vajRvPRIkMTUwMGFiM2ItZTNjYS00ZTU3LTg1N2EtZThmMDM1Y2E1MWY2GAAgACgAMNyDhauaMzjmhYWrmjNA5oWFq5ozShxSOTNBNlVBOXpiaGpSYmJDUnM3a1BBTDc2QlE9WiciJf////8AAAAF9lNYM1VuS2Jiby9LV0xZRFVIVDE4Q1U0Tml1TT1lcRRySsI+AmAFErUBCBASsAEKHHBDa0Jva3dzTU9ZTmNNVVc0cTAyYW8vYjhxST0SJDZlODVlMTk2LTYxNGYtNDE3MS05ZGI5LWJhZjhmNDI3Mjg3ZRgAIAAoADClo7LY7TM44Key2O0zQOCnstjtM0ocUkt3VTA5UXRaR1FDVDhFNE1RVFdNSWJpY1ZZPVonIiX/////AAAABulTYmh5cjhaOWVxWXQ3THFhSEtpTmU0ZWU5WUU9ZfkpJa/CPgJgBRK0AQgNEq8BChx4K0dKb3NSdHFiVmZNbEJ1YUVFWWlSUnY2RTg9EiRhYzc3MDMxNS03Yjg2LTQ3MTEtODI3Ni0yYmFkODQyMWRhNGQYACAAKAAwvpHjteQzOK37iZDjM0Ct+4mQ4zNKHEVLMFZ1UVhPdzRVZDNjSVN2WVBnRzhvK3dIcz1aJiIk/////wAAAAZNWnVrVk9OQzdTTnVPNWJ0VTk3VHNMTWdoVTA9ZcLn6NTCPgJgBRK1AQgMErABChw5ek1tOVl3eU81MVhlL2hRUXN2aXV5Y0p4NDQ9EiQ0MDg4ZDNiNS0wNjFkLTRlNjAtYTQzOS02YzIzYmVkNmIzYTQYACAAKAAw3JOw2O0zOMmr9Z7dM0DJq/We3TNKHGk3OHYrUWZidk9WKzVIb0UrSTh6dUpNam5vVT1aJyIl/////wAAAAX+UHF6V01FT1dsTy91YkY0SXJheFNPbkxzSitZPWUAAAAAwj4CYAUStQEIDxKwAQocNUJlVTFoREh2YUlLcmRXTzN2OVdUcUNBaUhrPRIkYjU2OGYwMWMtNWVhZi00NzIyLThmMzYtZDE1Y2QyZjc3MTc0GAAgACgAMIfC+qfkMzjzk/qn5DNA85P6p+QzShxZTzBBc3Z4cWl4ajJaaHJJOCsyaGhib3hFaVE9WiciJf////8AAAAG00JpN2tHOVRjUlZTaWZlR2pzWGlObEZVcTdVZz1lqFQJR8I+AmAFErUBCAsSsAEKHFNML3pnaUdmc3dXYXFadDFFTG5EcitUNHY5cz0SJDYxYmE2YjY5LTVmNmMtNGU2Ni04YzY3LTk4YWI0YTJlMDYxNRgAIAAoADDVhvWe3TM45v6/3tgzQOb+v97YM0occCtZalNFT3lvTFpRZUVZbVEyK2NNS3h6djNjPVonIiX/////AAAABf1iN2pIdzhETW5ING04emFGSFp4dnhGVDMvTkE9ZR/ZWtPCPgJgBRKvAQgIEqoBChxHZFBKdEFpNk1YQkkwUGN2TmExSHdyVFBLUjA9EiRmZjJjMjM0Ni0zMjU4LTQzYjUtOWYxNS1lYzVlNjg4M2UzMTUYACAAKAAwsdqb4IwzOPOfrYa9MkDzn62GvTJKHGxlcFhLdnBkUXg1a0ZLQjI4aUZXaFNVclRwMD1aISIf//+jRk5XUFl2TmhiSE5RbGhTKy8zTStoa3ZHQWVjPWVGgcADwj4CYAUSrgEIBxKpAQocbzYrNUdVOTdVWlh6VDlGVk5MT1NsTitYd1RVPRIkZTVlYzJjYjItNTYxYy00ZWE4LWJlZWUtMTFiMTA5NmRlMDE4GAAgACgAMPfV4d6JNDiKjsiInTJAio7IiJ0yShxidVcxa29LYlowUU81eGNvdzRKMFdqS1RwSjQ9WiAiHv+tMTBNdHZlQm5YYmFCV1VVbEN4aUt0M2pYaHRvPWW6bDcUwj4CYAUStQEIDhKwAQocSThSWkNoY013K0twcWl5ZG43VEFrM1FTUVdnPRIkMTFlZWNiODgtN2E4Ny00MmIyLTkwNzAtMDExYTdhOGE5ZmUxGAAgACgAMPebmOTjMzjdwJfk4zNA3cCX5OMzShxCRVlQY1RCNEJXNktjRDdlZzBrck5xOUhkbk09WiciJf////8AAAAGpjd1MENLSDJMd2dtUFFxemEzc3dtZU55QjZvdz1lhrVyk8I+AmAFErUBCAkSsAEKHGRSYkJWYnJDdURLMFhUZytVVE80MlhWODkxTT0SJGM5NTU2ZDU4LWZkOWYtNGI4Ni1hNzcyLWY2ZDM3MTk0YWJiNxgAIAAoADDGnqTO3TM436P1zfUyQN+j9c31MkocU21WZGcyMnpjcUZjeFk1K1djYThJZGd1QXBRPVonIiX/////AAAABP5JR2g1Q0V1UWkxTExMTktIdnc2NExhNldmamM9ZeWWxzjCPgJgBRKMAQgBEocBChx5eEovNmZ2a2VjcjdrcDVFUXpCNHRXTHBkYkU9EiRmZDM2M2E0MS1kMzcyLTU4ZmMtYWJiMy1lMDEyZTVmMzU0MTQYACAAKAAw4pGwj7cxOI6XsI+3MUCOl7CPtzFKHGFSQ1dMZ2hGOWI1SW5xS0lEdnVKL2p2UWtGYz1lAAAAAMI+AmAAMAA4AA==",
+   "version": 1
+}
